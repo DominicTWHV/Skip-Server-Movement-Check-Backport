@@ -1,9 +1,24 @@
 //file:noinspection GroovyAssignabilityCheck
 //file:noinspection GroovyAccessibility
+buildscript {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath 'net.fabricmc:fabric-loom:1.4.4'
+	}
+}
+
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
 }
+
+apply plugin: 'fabric-loom'
 
 loom {
 	accessWidenerPath = file("src/main/resources/skipservercheck.accesswidener")
@@ -44,12 +59,12 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
